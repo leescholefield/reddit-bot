@@ -1,12 +1,18 @@
+"""
+Creates a new Reddit connection and then polls each subreddit in the config.yml file for the last 10 submissions.
+"""
 import yaml
 import praw
 
+# contains login details for creating a new Reddit instance
 with open('config.yml', 'r') as ymlfile:
-    auth = yaml.load(ymlfile)
+    cfg = yaml.load(ymlfile)
 
-reddit = praw.Reddit(client_id=auth['client_id'],
-                     client_secret=auth['client_secret'],
-                     user_agent=auth['user_agent'])
+reddit = praw.Reddit(client_id=cfg['oauth']['client_id'],
+                     client_secret=cfg['oauth']['client_secret'],
+                     user_agent=cfg['oauth']['user_agent'])
 
-for submission in reddit.subreddit('ukpolitics').new(limit=10):
-    print(submission.title)
+for sub in cfg['subreddits']:
+    for submission in reddit.subreddit(sub).new(limit=10):
+        print(submission.title)
+    print('\n')
