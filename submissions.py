@@ -2,6 +2,7 @@
 Filters submissions.
 """
 from datetime import datetime
+import re
 
 
 def filter_by_date(submissions, date):
@@ -40,4 +41,7 @@ def filter_selfposts(submissions):
     :param submissions: list of submissions
     :return: a list with the self-post submissions removed
     """
-    return None
+    regex = re.compile('self.*')
+
+    return [val for val in submissions
+            if re.search(regex, val.domain) is None]
