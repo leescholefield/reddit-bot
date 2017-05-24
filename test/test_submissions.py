@@ -2,7 +2,7 @@ from datetime import datetime, timedelta
 import time
 import unittest
 
-from submissions import filter_by_date, filter_by_domain
+from submissions import filter_by_date, filter_by_domain, filter_selfposts
 
 
 class TestSubmission:
@@ -34,3 +34,12 @@ class SubmissionsTest(unittest.TestCase):
         expected = [sub2]
 
         self.assertListEqual(expected, filter_by_domain(all_list, banned_domains))
+
+    def test_remove_selfposts(self):
+        sub1 = TestSubmission(domain='self.java')
+        sub2 = TestSubmission(domain='youtube.com')
+        sub3 = TestSubmission(domain='self.python')
+        all_list = [sub1, sub2, sub3]
+        expected = [sub2]
+
+        self.assertListEqual(expected, filter_selfposts(all_list))
