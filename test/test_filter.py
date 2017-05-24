@@ -2,7 +2,7 @@ from datetime import datetime, timedelta
 import time
 import unittest
 
-from submissions import filter_by_date, filter_by_domain, filter_selfposts
+from filter import filter_by_date, filter_by_domain, filter_selfposts
 
 
 class TestSubmission:
@@ -12,7 +12,7 @@ class TestSubmission:
         self.domain = domain
 
 
-class SubmissionsTest(unittest.TestCase):
+class FilterTest(unittest.TestCase):
 
     def test_date_filter(self):
         date = datetime.today()
