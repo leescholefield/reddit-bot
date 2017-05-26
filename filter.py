@@ -36,10 +36,10 @@ def filter_by_date(submissions, date):
     :return: a list with the submissions made before a certain date removed.
     """
     if not isinstance(date, datetime):
-        date = datetime.fromtimestamp(date)
+        date = datetime.utcfromtimestamp(date)
 
     return [val for val in submissions
-            if datetime.fromtimestamp(val.created)
+            if datetime.utcfromtimestamp(val.created_utc)
             > date]
 
 
