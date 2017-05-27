@@ -15,14 +15,17 @@ def filter_by(submissions, *args, **kwargs):
     :return: a list of filtered submissions.
     """
     for val in args:
-        if val == 'self-posts':
-            submissions = filter_selfposts(submissions)
-        elif val == 'domain':
-            submissions = filter_by_domain(submissions, kwargs['domain'])
-        elif val == 'date':
-            submissions = filter_by_date(submissions, kwargs['date'])
-        else:
-            raise ValueError(val, ' is not recognized as a valid param')
+        try:
+            if val == 'self-posts':
+                submissions = filter_selfposts(submissions)
+            elif val == 'domain':
+                submissions = filter_by_domain(submissions, kwargs['domain'])
+            elif val == 'date':
+                submissions = filter_by_date(submissions, kwargs['date'])
+            else:
+                raise ValueError(val, ' is not recognized as a valid param')
+        except KeyError:
+            raise ValueError('The required key word arguments were not passed.')
 
     return submissions
 
