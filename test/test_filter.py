@@ -2,17 +2,21 @@ from datetime import datetime, timedelta
 import time
 import unittest
 
-from filter import filter_by_date, filter_by_domain, filter_selfposts
+from filter import *
 
 
 class TestSubmission:
     def __init__(self, date=None, domain=None):
         if date is not None:
-            self.created = time.mktime(date.timetuple())
+            self.created_utc = time.mktime(date.timetuple())
         self.domain = domain
 
 
 class FilterTest(unittest.TestCase):
+
+    def test_filter_by_invalid(self):
+        """ Tests that an invalid filter_by call throws an exception"""
+        self.assertRaises(ValueError, filter_by, [], 'domain')
 
     def test_date_filter(self):
         date = datetime.today()
